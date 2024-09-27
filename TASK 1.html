@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: grey;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 20px;
+}
+
+.gallery img {
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.2s;
+    border-radius: 20px;
+}
+
+.gallery img:hover {
+    transform: scale(1.06);
+}
+
+/* Modal (popup) */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    max-width: 80%;
+    max-height: 80%;
+}
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#caption {
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
+
+    </style>
+</head>
+<body>
+    <h1>Image Gallery</h1>
+    <div class="gallery">
+        <img src="img1.jfif" alt="">
+        <img src="img2.jpeg" alt="">
+        <img src="img3.jpeg" alt="">
+        <img src="img4.jpeg" alt="">
+        <img src="img5.jpeg" alt="">
+        <img src="avon5.jpg" alt="">
+    </div>
+
+    <div class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div id="caption"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+<script>
+
+    // Get the modal
+var modal = document.querySelector(".modal");
+
+// Get the image and the modal image element
+var modalImg = document.getElementById("modalImage");
+var captionText = document.getElementById("caption");
+
+// Get all images in the gallery
+var images = document.querySelectorAll(".gallery img");
+
+// Loop through images and add a click event to each
+images.forEach(function (img) {
+    img.addEventListener("click", function () {
+        modal.style.display = "flex";
+        modalImg.src = this.src;
+        captionText.innerHTML = this.alt;
+    });
+});
+
+// Get the close button element
+var closeBtn = document.querySelector(".close");
+
+// Close the modal when the close button is clicked
+closeBtn.onclick = function () {
+    modal.style.display = "none";
+};
+
+// Close the modal when clicking outside the image
+modal.onclick = function (e) {
+    if (e.target !== modalImg) {
+        modal.style.display = "none";
+    }
+};
+
+</script>
